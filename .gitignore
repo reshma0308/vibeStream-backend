@@ -87,6 +87,8 @@ web_modules/
 public/temp/*
 
 # But do NOT ignore the .gitkeep file (this keeps the folder alive in Git)
+# Public directory
+public/temp/*
 !public/temp/.gitkeep
 
 # parcel-bundler cache (https://parceljs.org/)
