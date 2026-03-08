@@ -83,8 +83,11 @@ web_modules/
 .env.production.local
 .env.local
 
-# Public directory
-public
+# Ignore the contents of the temp folder
+public/temp/*
+
+# But do NOT ignore the .gitkeep file (this keeps the folder alive in Git)
+!public/temp/.gitkeep
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
