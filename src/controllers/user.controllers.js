@@ -39,23 +39,22 @@ const registerUser = asyncHandler( async(req,res)=>{
      }
 
      
-     const avatarLocalPath = req.files?.avatar[0]?.path;
-     //const coverImageLocalPath =req.files?.coverImage[0]?.path;
-     let coverImageLocalPath;
-
-     if (req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
-           coverImageLocalPath = req.files.coverImage[0].path;
-       }
+     const avatarLocalPath = req.files?.avatar?.[0]?.path;
+     const coverImageLocalPath = req.files?.coverImage?.[0]?.path;
 
      if(!avatarLocalPath){
        throw new ApiError(400,"avatarLocal file is required")
      }
 
      const avatar = await uploadOnCloudinary(avatarLocalPath)
-     const coverImage = await uploadOnCloudinary(coverImageLocalPath)
+     
+     let coverImage;
+     if (coverImageLocalPath) {
+         coverImage = await uploadOnCloudinary(coverImageLocalPath)
+     }
+
      if(!avatar){
          throw new ApiError(400,"avatar file is required")
-
      }
 
      const user =await User.create({
@@ -391,7 +390,8 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
                 coverImage: 1,
                 subcribersCount: 1,
                 channelsSubscribedToCount: 1,
-                isSubscribed: 1
+                isSubscribed: 1,
+                isChannelMember: 1
             }
         }
     ]);
@@ -469,7 +469,8 @@ const getUserProfileById = asyncHandler(async(req, res) => {
                 subcribersCount: 1,
                 subscriberCount: "$subcribersCount",
                 channelsSubscribedToCount: 1,
-                isSubscribed: 1
+                isSubscribed: 1,
+                isChannelMember: 1
             }
         }
     ]);

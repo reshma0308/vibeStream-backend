@@ -44,9 +44,17 @@ const userSchema = new Schema(
        },
        refreshToken:{
          type: String
+       },
+       stripeCustomerId: {
+         type: String
+       },
+       stripeSubscriptionId: {
+         type: String
+       },
+       isChannelMember: {
+         type: Boolean,
+         default: false
        }
-
-       
     },
     {
         timestamps :true
